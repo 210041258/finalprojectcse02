@@ -92,6 +92,7 @@ int tickets::save_ticket_direct()
     finput << tickets::give_access_where << " " << tickets::give_access_date_go<< " ";
     finput << tickets::give_access_date_ret << " " <<  tickets::give_access_price<< " ";
     finput << tickets::give_access_t_visa_req << " " <<  tickets::give_access_t_cov_req<< endl;
+sort_tickets();
     return 1;
 }
 
@@ -192,4 +193,38 @@ int tickets::delete_ticket(int id_)
     fileoutput.close();
     fileinput.close();
     return 1;
+}
+struct ti
+{
+    int id;
+    string from;
+    string where;
+    string date_go;
+    string date_return;
+    int price;
+    int co_cert;
+    int visa_cert;
+};
+
+void tickets::sort_tickets()
+{
+
+    vector<ti> tc;
+    ifstream fileoutput("tickets.txt");
+    ti ticket;
+    while (fileoutput >> ticket.id >> ticket.from >> ticket.where >> ticket.date_go >> ticket.date_return >> ticket.price >> ticket.co_cert >> ticket.visa_cert)
+    {
+        tc.push_back(ticket);
+    }
+    sort(tickets.begin(), tickets.end(), [](const ti& a, const ti& b)
+    {
+        return a.price > b.price;
+    });
+    fileoutput.close();
+    ofstream fileoutput("tickets.txt");
+    for(const auto& t : tickets)
+    {
+        fileoutput << t.id << " " << t.from << " " << t.where << " " << t.date_go << " "<< t.date_return << " " << t.price << " " << t.co_cert << " " << t.visa_cert << std::endl;
+    }
+    fileoutput.close();
 }

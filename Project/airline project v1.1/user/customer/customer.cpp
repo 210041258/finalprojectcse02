@@ -86,3 +86,11 @@ void customer::customer_dashboard()
         break;
     }
 }
+void view_tickets(){
+    ofstream output("tickets.txt");
+    cout << "Ticket Id \t" <<  "" << "Ticket from " << "Ticket where " << "Ticket date to go"<< "Ticket date to return " << "Ticket price" ; 
+    while(fileoutput >> arr[0] >> str[0] >> str[1] << str[2] << str[3] << arr[1] << arr[2] << arr[3])
+    {
+    cout << arr[0] << "\t" << str[0] << "\t" << str[1] << "\t" << str[2] << "\t" << str[3] << "\t" << arr[1] << endl;
+    }
+}

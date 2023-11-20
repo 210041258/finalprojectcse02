@@ -36,6 +36,7 @@ public:
     int print_user_operation(string username_);
     void save_user_operation(string username_,int id_,int value);
     int return_user_operation(string username_,int id_,int value);
+    /// 
 private:
     string username;
     string password;

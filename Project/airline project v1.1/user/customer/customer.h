@@ -9,5 +9,6 @@ public:
     void customer_dashboard();
     void buy_ticket();
     void gui_1();
+    void view_tickets();
 };
 #endif

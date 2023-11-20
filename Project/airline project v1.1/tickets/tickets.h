@@ -35,6 +35,8 @@ public:
     int delete_ticket(int id_);
     int print_info_id(int id_);//ifsr
     ///
+    void sort_tickets();
+
 private:
     int id;
     string from;
