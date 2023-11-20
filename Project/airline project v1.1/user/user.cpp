@@ -184,26 +184,25 @@ int return_user_operation(string username_,int id_,int value) {
 try{
     int arr[2];
     string str;
-    ofstream finput("operation_user.txt", ios::app);
-    ifstream foutput("operation_user_new.txt");
+    ifstream fileoutput("operation_user.txt");
+    ofstream fileinput("operation_user_new.txt");
     if(!(foutput.open())){
         //important file thats why 
     throw error_file_not_founded();
 }
-// operation of searching 
-// avoiding the id 
 while(foutput >> str >> arr[0] >> arr[1])
 {
-    if(id_ == arr[0]){
-
+    if(id_ != arr[0]){
+    fileinput << username_ << " " << id_ <<" "<< value <<endl ;
     }
 }
 finput.close();
 foutput.close();
-ofstream finput("operation_user_new.txt", ios::app);
-ifstream foutput("operation_user.txt");
-// operation of entering data 
-
+ifstream fileoutput("operation_user_new.txt");
+ofstream fileinput("operation_user.txt");
+while(foutput >> str >> arr[0] >> arr[1]){
+    fileinput << username_ << " " << id_ <<" "<< value <<endl ;
+}
 finput.close();
 foutput.close();
 }
@@ -213,5 +212,28 @@ catch(error_file_not_founded){
 }
 
 int delete_username(string username_) {
-
+    int arr[5];
+    string str[2];
+    ifstream fileoutput("user.txt");
+    ofstream fileinput("user_new.txt");
+    while(foutput >>str[0] >> str[1] >>arr[0]>> arr[1] >> arr[2]>> arr[3] >> arr[4])
+{
+if(username_ != str[0]){
+    finput << str[0] << " " << str[1] << " ";
+    finput << arr[0] << " " << arr[1] << " ";
+    finput << arr[2] << " " << arr[3] << " ";
+    finput << arr[4] << endl;
+}
+}
+finput.close();
+foutput.close();
+    ifstream fileoutput("user_new.txt");
+    ofstream fileinput("user.txt");
+while(foutput >>str[0] >> str[1] >>arr[0]>> arr[1] >> arr[2]>> arr[3] >> arr[4])
+{
+    finput << str[0] << " " << str[1] << " ";
+    finput << arr[0] << " " << arr[1] << " ";
+    finput << arr[2] << " " << arr[3] << " ";
+    finput << arr[4] << endl;
+}
 }

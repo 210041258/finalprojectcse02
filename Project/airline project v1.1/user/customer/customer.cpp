@@ -54,7 +54,7 @@ void customer::return_ticket()
     cin >> id_;
     tickets t1;
     if(!(t1.extract_info_id(id_))){cout << "ID Ticket Not Fouuned !! " << endl;}
-    user::edit_access_balance(user::give_access_balance  + t1.give_access_price()));
+    user::edit_access_balance(user::give_access_balance  + t1.give_access_price());
     user::return_user_operation(user::give_access_username,t1.give_access_id,t1.give_access_price);
     cout <<  "Your Operation is done !! " <<endl;
     customer::gui_1();
