@@ -1,0 +1,279 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include <Windows.h>
+#include<time.h>
+FILE *user,*newdatauser,*a;
+FILE *ticket,*new_ticket;
+FILE *last_operation,*new_last_operation;
+FILE *tmp;
+#define dont_care sleep(2);system("cls");
+typedef struct _syst
+{
+    int wYear;
+    int wMonth;
+    int wDay;
+    int wDayOfWeek;
+} syst;
+typedef struct _syst2
+{
+    WORD wYear;
+    WORD wMonth;
+    WORD wDay;
+    WORD wDayOfWeek;
+} syst2;
+
+typedef struct ticket_info_onedirect
+{
+    int id;
+    char from[50];
+    char where[50];
+    char date[50];
+    int price;
+    int t_visa_req;
+    int t_cov_req;
+} ticket_info_onedir;
+
+typedef struct ticket_info_twodirect
+{
+    int id;
+    char from[50];
+    char where[50];
+    char date_go[50];
+    char date_ret[50];
+    int price;
+    int t_visa_req;
+    int t_cov_req;
+} ticket_info_twodir;
+
+int main()
+{
+    start();
+    remove("tmp.txt");
+    return 0;
+}
+
+void start()
+{
+    int x;
+    char username[50];
+    char password[50];
+    printf("welcome to our system for airlines tickets ");
+    printf("\n 1-Login \n 2-Sgin up \n 3-Exit\n");
+    printf("Enter the number : ");
+    scanf("%d",&x);
+    int y;
+    if(x==1)
+    {
+        system("cls");
+        printf("Enter the username : ");
+        scanf("%s",username);
+        printf("Enter the password : ");
+        scanf("%s",password);
+        y = login(username,password);
+        if(y==1)
+        {
+            printf("You signed in sussuccfly");
+            dont_care;
+            user_dashboard(username);
+        }
+        if(y==2)
+        {
+            printf("You signed in sussuccfly");
+            dont_care;
+            admin_dashboard();
+        }
+        if(y==0)
+        {
+            printf("you don't have account or account blocked in our system");
+            dont_care;
+            start();
+        }
+    }
+    if(x==2)
+    {
+        sginup();
+    }
+    if(x==3)
+    {
+        exit(1);
+    }
+    else
+    {
+        dont_care
+        printf("check the input \n");
+        start();
+    }
+}
+
+int login(char *username_req,char *password_req)
+{
+    char buffer[1024],username[50],password[50];
+    int access,admin_access,co_cert,visa_cert;
+    int balance;
+    user = fopen("user.txt","r");
+    if(user==NULL)
+    {
+        user = fopen("user.txt","w");
+    }
+    while(fgets(buffer,1024,user)!=NULL)
+    {
+        sscanf(buffer," username : %s password : %s access : %d admin access : %d balance : %d having a visa %d and having corona certificate %d \n",username,password,&access,&admin_access,&balance,&co_cert,&visa_cert);
+        if(!(strcmp(username,username_req))&&(!(strcmp(password_req,password)))&&(access ==1))
+        {
+            if(admin_access ==1)
+            {
+                return 2;
+            }
+            if(admin_access ==0)
+            {
+                return 1;
+            }
+        }
+    }
+    fclose(user);
+    return 0;
+}
+
+void sginup()
+{
+    int x;
+    char username[50],password[50],last_operation[500];
+    int access=1,admin_access=0,co_cert=0,visa_cert=0;
+    int balance=1000000;
+    printf("Enter the username : ");
+    scanf("%s",username);
+    if((check_username(username)))
+    {
+        printf("Enter the password : ");
+        scanf("%s",password);
+        user = fopen("user.txt","a");
+        if(user==NULL)
+        {
+            user = fopen("user.txt","w");
+        }
+        fprintf(user," username : %s password : %s access : %d admin access : %d balance : %d having a visa %d and having corona certificate %d \n",username,password,access,admin_access,balance,co_cert,visa_cert);
+        fclose(user);
+        printf("Signed up succssefily \n");
+    }
+    else{printf("Check the username !!\n");}
+    printf("\n 1- go back \n 2- exit \n Enter the spacifc number : ");
+    scanf("%d",&x);
+    if(x==1)
+    {
+        dont_care
+        start();
+    }
+    else
+    {
+        dont_care
+        exit(1);
+    }
+
+}
+
+void admin_dashboard()
+{
+    int y;
+    printf("Welcome to admin pannel\n");
+    printf("1 - add ticket \n");
+    printf("2 - edit ticket \n");
+    printf("3 - delete ticket \n");
+    printf("4 - spacifc ticket info \n");
+    printf("5 - block user \n");
+    printf("6 - Track Operation spacifc user \n");
+    printf("7 - spacifc user info \n");
+    printf("8 - Logout \n");
+    printf("Enter the number : ");
+    scanf("%d",&y);
+    if(y==1)
+    {
+        dont_care
+        add_ticket();
+    }
+    else if(y==2)
+    {
+        dont_care
+        edit_ticket();
+    }
+    else if(y==3)
+    {
+        dont_care
+        delete_ticket();
+    }
+    else if(y==4)
+    {
+        dont_care
+        spacfic_ticket_info();
+    }
+    else if(y==5)
+    {
+        dont_care
+        block_user();
+    }
+    else if(y==6)
+    {
+        dont_care
+        track_op_user();
+    }
+    else if(y==7)
+    {
+        dont_care
+        spacifc_user_info();
+    }
+    else if(y==8)
+    {
+        dont_care
+        start();
+    }
+    else
+    {
+        dont_care
+        printf("Check the input !! \n");
+        admin_dashboard();
+    }
+}
+
+int check_username(char *username)
+{
+    int x;
+    user = fopen("user.txt","r");
+    if(user==NULL)
+    {
+        user = fopen("user.txt","w");
+        fclose(user);
+        return 1;
+    }
+    char buffer[1024],user_tmp[100],password[100];
+    int access,admin_access,co_cert,visa_cert;
+    int balance;
+    while(fgets(buffer,1024,user)!=NULL)
+    {
+        sscanf(buffer," username : %s password : %s access : %d admin access : %d balance : %d having a visa %d and having corona certificate %d \n",user_tmp,password,&access,&admin_access,&balance,&co_cert,&visa_cert);
+        if((!(strcmp(username,user_tmp))))
+        {
+            fclose(user);
+            return 0;
+        }
+    }
+    fclose(user);
+    return 1;
+}
+
+
+void ask_admin()
+{
+    int x;
+    printf("\n 1- go back \n 2- exit \n Enter the spacifc number : ");
+    scanf("%d",&x);
+    if(x==1)
+    {
+        dont_care
+        admin_dashboard();
+    }
+    else
+    {
+        dont_care
+        exit(1);
+    }
+}
