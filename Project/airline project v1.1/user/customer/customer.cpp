@@ -63,7 +63,7 @@ void customer::return_ticket()
 // ready to run
 void customer::customer_dashboard()
 {
-     view_tickets();
+    view_tickets();
     cout << "Welcome To User Panel " << endl;
     cout << "1 - Buy Ticket " << endl;
     cout << "2 - Return Ticket " << endl;
