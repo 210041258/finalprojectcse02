@@ -36,7 +36,7 @@ void customer::buy_ticket()
     if(!(user::edit_access_balance(user::give_access_balance  - t1.give_access_price()))){
     cout << "Check the Balance !!" << endl;
     }
-    if(!(user::save_user_operation_direct(user::give_access_username,tickets::give_access_id,tickets::give_access_price)))
+    if(!(user::save_user_operation(user::give_access_username,tickets::give_access_id,tickets::give_access_price)))
 {
     cout << "Check your Account info and Ticket Info From the board !!" << endl;
     customer::gui_1();

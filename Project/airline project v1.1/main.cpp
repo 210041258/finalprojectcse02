@@ -53,8 +53,7 @@ void login()
     cout << "Enter Password :" << endl;
     getline(cin,password);
     // user data
-    ifstream user_data("db/user.txt",ios::app);
-
+    ifstream user_data("user.txt",ios::app);
     while(!(user_data >> user_temp >> pass_temp >> arr[0] >> arr[1]))
     {
         if((username==user_temp)&&(password==pass_temp))

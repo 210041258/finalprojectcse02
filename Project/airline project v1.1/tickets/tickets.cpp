@@ -88,23 +88,21 @@ void tickets::edit_access_t_cov_req(int cov_)
 int tickets::save_ticket_direct()
 {
     ofstream finput("tickets.txt",ios::app);
-    finput << tickets::give_access_id << tickets::give_access_from;
-    finput << tickets::give_access_where << tickets::give_access_date_go;
-    finput << tickets::give_access_date_ret << tickets::give_access_price;
-    finput << tickets::give_access_t_visa_req << tickets::give_access_t_cov_req;
+    finput << tickets::give_access_id << " " << tickets::give_access_from<< " ";
+    finput << tickets::give_access_where << " " << tickets::give_access_date_go<< " ";
+    finput << tickets::give_access_date_ret << " " <<  tickets::give_access_price<< " ";
+    finput << tickets::give_access_t_visa_req << " " <<  tickets::give_access_t_cov_req<< endl;
     return 1;
 }
 
 int tickets::search_id(int id_)
 {
-    int id;
-    char str[1024];
+    int arr[4];
+    string str[4];
     ifstream fileoutput("tickets.txt");
-    while(!(fileoutput.eof()))
+    while(fileoutput >> arr[0] >> str[0] >> str[1] << str[2] << str[3] << arr[1] << arr[2] << arr[3])
     {
-        fileoutput.getline(str,1024);
-        sscanf(str,"%d ",&id);
-        if(id_ == id)
+        if(id_ == arr[0])
         {
             return 1;
         }
@@ -142,47 +140,41 @@ int tickets::print_info_id(int id_)
 }
 
 tickets tickets::extract_info_id(int id_)
-
 {
     tickets t;
     int intarr[4];
     string strarr[4];
-    char str[1024];
     ifstream fileoutput("tickets.txt");
-    while(!(fileoutput.eof()))
+    while(fileoutput >> arr[0] >> str[0] >> str[1] << str[2] << str[3] << arr[1] << arr[2] << arr[3])
     {
-        fileoutput.getline(str,1024);
-        sscanf(str,"%d %s %s %s %s %d %d %d",&intarr[0],strarr[0],strarr[1],strarr[2],strarr[3],&intarr[1],&intarr[2],&intarr[3]);
-        if(id_ == id)
+        if(id_ == arr[0])
         {
-            t.edit_access_id(intarr[0]);
-            t.edit_access_form(strarr[0]);
-            t.edit_access_where(strarr[1]);
-            t.edit_access_date_go(strarr[2]);
-            t.edit_access_date_ret(strarr[3]);
-            t.edit_access_price(intarr[1]);
-            t.edit_access_t_visa_req(intarr[2]);
-            t.edit_access_t_cov_req(intarr[3]);
+            t.edit_access_id(arr[0]);
+            t.edit_access_form(str[0]);
+            t.edit_access_where(str[1]);
+            t.edit_access_date_go(str[2]);
+            t.edit_access_date_ret(str[3]);
+            t.edit_access_price(arr[1]);
+            t.edit_access_t_visa_req(arr[2]);
+            t.edit_access_t_cov_req(arr[3]);
             return t;
         }
     }
 }
 int tickets::delete_ticket(int id_)
 {
-    int id;
-    char str[1024];
-    char str2[1024];
+
+    int arr[4];
+    string str[4];
     ifstream fileoutput("tickets.txt");
     ofstream fileinput("tickets_new.txt",ios::app);
-    while(!(fileoutput.eof()))
-    {
-        fileoutput.getline(str,1024);
-        sscanf(str,"%d ",&id);
+    while()
+{    {
         if(id_ != id)
         {
             str2=str;
             fileinput.write(str2,1024);
-        }
+        }}
     }
     fileoutput.close();
     fileinput.close();

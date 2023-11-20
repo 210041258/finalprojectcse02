@@ -90,19 +90,13 @@ void user::edit_access_balance(int _balance_)
 ///Readyy to RUN up
 void save_user_direct() {
     ofstream finput("user.txt", ios::app);
-
-    if (!finput.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return;
-    }
-    // Assuming give_access_username, give_access_password, etc., are member functions that return the values.
     finput << user::give_access_username << " " << user::give_access_password << " ";
     finput << user::give_access_access << " " << user::give_access_admin_access << " ";
     finput << user::give_access_co_cert << " " << user::give_access_visa_cert << " ";
     finput << user::give_access_balance << endl;
     finput.close();
 }
-// string _username, string _password, int _access, int _admin_access, int _co_cert_, int _visa_cert_, int _balance_
+
 user extract_info_username(string username_) {
     ifstream foutput("user.txt");
     string str[2];
@@ -122,9 +116,7 @@ user extract_info_username(string username_) {
             }
     }
 } //ifsr
-int delete_username(string username_) {
 
-}
 int print_info_username(string username_) {
     ifstream foutput("user.txt");
     string str[2];
@@ -145,8 +137,81 @@ int print_info_username(string username_) {
     }
 }
 int search_username(string username_) {
-    
-} //ifsr
-int print_user_operation(string username_) {}
-void save_user_operation(string username_,int id_,int value) {}
-int return_user_operation(string username_,int id_,int value) {}
+    ifstream foutput("user.txt");
+    string str[2];
+    int arr[5];
+    while(foutput >>str[0] >> str[1] >>arr[0]>> arr[1] >> arr[2]>> arr[3] >> arr[4])
+    {
+        if(str[0] == username_){
+            return 1;
+            }
+    }
+} 
+int print_user_operation(string username_) {
+    ifstream foutput("user.txt");
+    string str[2];
+    int arr[5];
+    while(foutput >>str[0] >> str[1] >>arr[0]>> arr[1] >> arr[2]>> arr[3] >> arr[4])
+    {
+// string _username, string _password, int _access, int _admin_access, int _co_cert_, int _visa_cert_, int _balance_
+        if(str[0] == username_){
+            cout << "User Information : " <<endl;
+            cout << "The User Name : " << str[0] <<endl;
+            cout << "The User Password : " << str[1] <<endl;
+            cout << "The User Access : " << >arr[0] <<endl;
+            cout << "The User Admin Access : " << arr[1] <<endl;
+            cout << "The User Covid-19 Certificate : " << arr[2] <<endl;
+            cout << "The User Visa-Contry Certificate  : " << arr[3] <<endl;
+            cout << "The User Balance : " << arr[4] <<endl;
+            return 1;
+            }
+    }
+}
+void save_user_operation(string username_,int id_,int value) {
+    try{
+    ofstream finput("operation_user.txt", ios::app);
+    if(!(fileinput.open())){
+        //important file thats why 
+    throw error_file_not_founded();
+}
+    finput << username_ << " " << id_ <<" "<< value <<endl ;
+}
+catch (error_file_not_founded){
+    cerr << "File Not Founded , Check your Information !" << endl;
+}
+}
+int return_user_operation(string username_,int id_,int value) {
+try{
+    int arr[2];
+    string str;
+    ofstream finput("operation_user.txt", ios::app);
+    ifstream foutput("operation_user_new.txt");
+    if(!(foutput.open())){
+        //important file thats why 
+    throw error_file_not_founded();
+}
+// operation of searching 
+// avoiding the id 
+while(foutput >> str >> arr[0] >> arr[1])
+{
+    if(id_ == arr[0]){
+
+    }
+}
+finput.close();
+foutput.close();
+ofstream finput("operation_user_new.txt", ios::app);
+ifstream foutput("operation_user.txt");
+// operation of entering data 
+
+finput.close();
+foutput.close();
+}
+catch(error_file_not_founded){
+    cerr << "File Not Founded , Check your Information !" << endl;
+}
+}
+
+int delete_username(string username_) {
+
+}

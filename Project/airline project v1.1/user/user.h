@@ -9,6 +9,7 @@ class user
 public:
     user(string _username, string _password, int _access, int _admin_access, int _co_cert_, int _visa_cert_, int _balance_);
     virtual ~user();
+    class error_file_not_founded();
     ///
     string give_access_username();
     string give_access_password();
