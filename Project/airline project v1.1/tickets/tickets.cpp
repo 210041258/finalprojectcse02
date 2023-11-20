@@ -167,28 +167,27 @@ int tickets::delete_ticket(int id_)
     int arr[4];
     string str[4];
     ifstream fileoutput("tickets.txt");
-    ofstream fileinput("tickets_new.txt",ios::app);
-    while()
-{    {
-        if(id_ != id)
+    ofstream fileinput("tickets_new.txt");
+    while(fileoutput >> arr[0] >> str[0] >> str[1] << str[2] << str[3] << arr[1] << arr[2] << arr[3])
+{        if(id_ != arr[0])
         {
-            str2=str;
-            fileinput.write(str2,1024);
-        }}
-    }
+    fileinput << arr[0] << " " <<  str[0] << " ";
+    fileinput << str[1] << " " << str[2]<< " ";
+    fileinput << str[3] << " " <<  arr[1] << " ";
+    fileinput << arr[2] << " " <<  arr[4] << endl;
+        }
+        }
+    
     fileoutput.close();
     fileinput.close();
     ifstream fileoutput("tickets_new.txt");
-    ofstream fileinput("tickets.txt",ios::app);
-    while(!(fileoutput.eof()))
+    ofstream fileinput("tickets.txt");
+    while(fileoutput >> arr[0] >> str[0] >> str[1] << str[2] << str[3] << arr[1] << arr[2] << arr[3])
     {
-        fileoutput.getline(str,1024);
-        sscanf(str,"%d ",&id);
-        if(id_ != id)
-        {
-            str2=str;
-            fileinput.write(str2,1024);
-        }
+    fileinput << arr[0] << " " <<  str[0] << " ";
+    fileinput << str[1] << " " << str[2]<< " ";
+    fileinput << str[3] << " " <<  arr[1] << " ";
+    fileinput << arr[2] << " " <<  arr[4] << endl;
     }
     fileoutput.close();
     fileinput.close();
